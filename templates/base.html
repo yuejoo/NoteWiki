@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/layouts/side-menu.css') }}">
+    <!--<![endif]-->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layouts/head-bar.css') }}">
+</head>
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#">NoteWiki</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
+
+                {% if current_user.is_authenticated %}
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="#" class="pure-menu-link"> {{ current_user.name }} </a>
+                    </li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Create New</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Preference</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Logout</a></li>
+                {% else %}
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="#" class="pure-menu-link"> Welcome! </a>
+                    </li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign in</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign up</a></li>
+                {% endif %}
+
+                <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                    <a href="#" class="pure-menu-link"> Search </a>
+                </li>
+                <li class="pure-menu-item">
+                    <form id="searchthis" action="/search" style="display:inline;">
+                        <!-- Search box for blogger by Namanyay Goel //-->
+                        <input id="namanyay-search-box" name="q" size="10" type="text" placeholder="search..." />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="head-bar">
+        <div class="left-part">
+            {% block navbar %} {% endblock %}
+        </div>
+    </div>
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+
+</body>
+</html>

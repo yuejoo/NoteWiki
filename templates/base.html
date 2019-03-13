@@ -13,6 +13,7 @@
     <!--<![endif]-->
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layouts/head-bar.css') }}">
+    {% block head %} {% endblock %}
 </head>
 <body>
 <div id="layout">
@@ -32,11 +33,16 @@
 
                 {% if current_user.is_authenticated %}
                     <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                        <a href="#" class="pure-menu-link"> {{ current_user.name }} </a>
+                        <a href="#" class="pure-menu-link"> Jason </a>
                     </li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Create New</a></li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Preference</a></li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Logout</a></li>
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="#" class="pure-menu-link"> Tools </a>
+                    </li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Create New</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Edit</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Delete</a></li>
                 {% else %}
                     <li class="pure-menu-item menu-item-divided pure-menu-selected">
                         <a href="#" class="pure-menu-link"> Welcome! </a>

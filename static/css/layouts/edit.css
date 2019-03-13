@@ -1,0 +1,17 @@
+#save-button {
+    display: inline-block;
+}
+
+#cancel-button {
+    display: inline-block;
+}
+
+#title-editor {
+    display: inline;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#editor {
+    display: block;
+}

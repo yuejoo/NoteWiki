@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layouts/edit.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    <h3 id="home-directory"> Home </h3>
+    {% for sub in subs %}
+        <div id="chevron-arrow-right"></div> <a id="home-directory" href="#"> {{sub}} </a>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+
+<input class="pure-input-1" type="text" placeholder="Title" required><br>
+<fieldset class="pure-group">
+    <textarea id="editor"> </textarea>
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+
+
+    <button id="save-button" class="pure-button"> Save </button>
+    <button id="cancel-button" class="pure-button"> Cancel </button>
+</fieldset>
+
+{% endblock %}

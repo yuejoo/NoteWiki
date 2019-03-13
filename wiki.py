@@ -1,10 +1,7 @@
 from flask import Flask, render_template, url_for, Markup, request
 from flask import app as flask_app
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 import markdown
-from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField
-from wtforms.validators import Optional
 from werkzeug.routing import BaseConverter
 
 class ListConverter(BaseConverter):
@@ -15,7 +12,6 @@ class ListConverter(BaseConverter):
             for value in values)
 
 login_manager = LoginManager()
-output = "**Test**"
 
 app = Flask(__name__)
 
@@ -31,8 +27,13 @@ def index():
     return render_template("home.html")
 
 @app.route('/view/<list:subs>', methods = ['GET', 'POST'])
-def name(subs):
+def view(subs):
     title = subs[-1]
     return render_template("view.html", title = title, subs = subs)
+
+@app.route('/edit/<list:subs>', methods = ['GET', 'POST'])
+def edit(subs):
+    title = subs[-1]
+    return render_template("edit.html", title = title, subs = subs)
 
 app.run()

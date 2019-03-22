@@ -13,6 +13,11 @@
     <!--<![endif]-->
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layouts/head-bar.css') }}">
+    <script type=text/javascript>
+        $BASE_URL = {{ request.url|tojson|safe }};
+        $URL_ROOT = {{ request.url_root|tojson|safe }};
+    </script>
+
     {% block head %} {% endblock %}
 </head>
 <body>
@@ -28,7 +33,7 @@
             <a class="pure-menu-heading" href="#">NoteWiki</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" id="menu-home" class="pure-menu-link">Home</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
 
                 {% if current_user.is_authenticated %}
@@ -69,7 +74,7 @@
             {% block navbar %} {% endblock %}
         </div>
     </div>
-    <div class="content">
+    <div id = "main" class="content">
         {% block content %} {% endblock %}
     </div>
 </div>

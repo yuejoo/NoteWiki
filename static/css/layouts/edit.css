@@ -7,9 +7,12 @@
 }
 
 #title-editor {
-    display: inline;
-    margin-left: 0;
-    margin-right: 0;
+    padding: 3.5em 0.5em 1em 0.04em;
+    display: block;
+}
+
+#title-input {
+    width: 100%;
 }
 
 #editor {

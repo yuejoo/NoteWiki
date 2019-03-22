@@ -1,3 +1,4 @@
+from . import database
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import NullType
@@ -8,11 +9,11 @@ Base = declarative_base()
 metadata = Base.metadata
 
 
-class Category(Base):
+class Category(database.Model):
     __tablename__ = 'Category'
 
     category_id = Column(Integer, primary_key=True)
-    category_name = Column(String(255), nullable=False)
+    category_name = Column(String(255), nullable=False, unique = True)
     content_id = Column(ForeignKey('Content.content_id'), nullable=False)
     parent_id = Column(ForeignKey('Category.category_id'), nullable=False)
 
@@ -20,7 +21,7 @@ class Category(Base):
     parent = relationship('Category', remote_side=[category_id], primaryjoin='Category.parent_id == Category.category_id', backref='categories')
 
 
-class Content(Base):
+class Content(database.Model):
     __tablename__ = 'Content'
 
     content_id = Column(Integer, primary_key=True)
@@ -37,14 +38,14 @@ class Content(Base):
     tag = relationship('Tag', primaryjoin='Content.tag_id == Tag.tag_id', backref='contents')
 
 
-class ContentMetadatum(Base):
+class ContentMetadatum(database.Model):
     __tablename__ = 'ContentMetadata'
 
     metadata_id = Column(Integer, primary_key=True)
     content_metadata = Column(Text, nullable=False)
 
 
-class Role(Base):
+class Role(database.Model):
     __tablename__ = 'Role'
 
     role_id = Column(Integer, primary_key=True)
@@ -52,14 +53,14 @@ class Role(Base):
     permission = Column(Integer, nullable=False)
 
 
-class Tag(Base):
+class Tag(database.Model):
     __tablename__ = 'Tag'
 
     tag_id = Column(Integer, primary_key=True)
     tag_name = Column(String(255), nullable=False)
 
 
-class User(Base):
+class User(database.Model):
     __tablename__ = 'User'
 
     user_id = Column(Integer, primary_key=True)

@@ -11,6 +11,7 @@ from flask_login import LoginManager, current_user, login_user, login_required, 
 import markdown
 from werkzeug.routing import BaseConverter
 
+
 class ListConverter(BaseConverter):
     def to_python(self, value):
         return value.split('+')
@@ -24,6 +25,9 @@ SECRET_KEY = 'random_secret_key'
 app.config['SECRET_KEY'] = SECRET_KEY
 app.url_map.converters['list'] = ListConverter
 
+@app.template_filter('datetime')
+def _jinja2_filter_datetime(datetime):
+    return datetime.strftime("%Y-%m-%d %H:%M")
 
 @app.before_request
 def before_request():

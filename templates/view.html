@@ -12,6 +12,7 @@
 {% block content %}
 <div class="header">
     <h2 id="custom-title">{{view.title}}</h2>
+    <p class="content-meta"> Last edited by {{view.last_edited_by}} on {{view.last_edited|datetime}} </p>
 </div>
 
 <div class="content">

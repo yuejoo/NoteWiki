@@ -1,5 +1,5 @@
 from . import database
-from .models import Category, Content, ContentMetadatum
+from .models import Category, Content, ContentMetadatum, User
 import datetime
 import mistune
 
@@ -22,7 +22,7 @@ def create_view_from_db(uri_subs):
         content_id = category.content_id
         content = Content.query.filter_by(content_id=content_id).first()
         content_metadata = ContentMetadatum.query.filter_by(metadata_id=content.content_metadata_id).first()
-
+        owner = User.query.filter_by(user_id=content.owner_id).first()
         return View(
             category_name = category_name,
             body = convert_markdown_to_html(content.data),

@@ -1,8 +1,10 @@
 from . import database
+from flask_login import UserMixin
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import NullType
 from sqlalchemy.ext.declarative import declarative_base
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 Base = declarative_base()
@@ -60,7 +62,7 @@ class Tag(database.Model):
     tag_name = Column(String(255), nullable=False)
 
 
-class User(database.Model):
+class User(UserMixin, database.Model):
     __tablename__ = 'User'
 
     user_id = Column(Integer, primary_key=True)
@@ -70,3 +72,18 @@ class User(database.Model):
     role_id = Column(ForeignKey('Role.role_id'), nullable=False)
 
     role = relationship('Role', primaryjoin='User.role_id == Role.role_id', backref='users')
+
+    @property
+    def id(self):
+        return self.user_id
+
+    @property
+    def password(self):
+        raise AttributeError('Password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)

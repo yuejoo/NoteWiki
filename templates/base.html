@@ -33,7 +33,7 @@
             <a class="pure-menu-heading" href="#">NoteWiki</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="#" id="menu-home" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="{{ request.url_root + 'home' | safe }}" id="menu-home" class="pure-menu-link">Home</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
 
                 {% if current_user.is_authenticated %}
@@ -41,19 +41,19 @@
                         <a href="#" class="pure-menu-link"> Jason </a>
                     </li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Preference</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Logout</a></li>
+                    <li class="pure-menu-item"><a href="{{ request.url_root + 'logout' | safe }}" class="pure-menu-link">Logout</a></li>
                     <li class="pure-menu-item menu-item-divided pure-menu-selected">
                         <a href="#" class="pure-menu-link"> Tools </a>
                     </li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Create New</a></li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Edit</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Delete</a></li>
+                    <li class="pure-menu-item"><a href="{{ request.url + "/delete" | safe }}" class="pure-menu-link">Delete</a></li>
                 {% else %}
                     <li class="pure-menu-item menu-item-divided pure-menu-selected">
                         <a href="#" class="pure-menu-link"> Welcome! </a>
                     </li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign in</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign up</a></li>
+                    <li class="pure-menu-item"><a href="{{ request.url_root + 'login' | safe }}" class="pure-menu-link">Login</a></li>
+                    <li class="pure-menu-item"><a href="{{ request.url_root + 'signup' | safe }}" class="pure-menu-link">Sign up</a></li>
                 {% endif %}
 
                 <li class="pure-menu-item menu-item-divided pure-menu-selected">

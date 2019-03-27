@@ -17,25 +17,25 @@
 {% endblock %}
 
 {% block content %}
-
+{% from "utils.html" import render_field %}
+<form id="editor-form" class="pure-form">
 <div id="title-editor">
-    <input id="title-input" type="text" placeholder="Title" name="Title" required><br>
+    {{ render_field(form.title, placeholder="Title", id="title-input") }}
 </div>
 
 <fieldset class="pure-group">
-    <textarea id="editor"> </textarea>
+    {{ render_field(form.content, id="editor") }}
+    {% if view %}
+        <script type=text/javascript>
+           document.getElementById('title-input').value = `{{view.title | safe | replace("\n", "\\n") | replace("`", "\`")}}`
+           document.getElementById('editor').value = `{{view.markdown_content | safe | replace("\n", "\\n") | replace("`", "\`")}}`
+        </script>
+    {% endif %}
     <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
-
-    <button id="save-button" type="submit" class="pure-button"> Save </button>
-    <button id="cancel-button" class="pure-button"> Cancel </button>
 </fieldset>
-
-{% if view %}
-    <script type=text/javascript>
-       window.simplemde.value(`{{view.markdown_content|replace("`", "\`")}}`);
-       document.getElementById('title-input').value = '{{view.title}}'
-    </script>
-{% endif %}
+</form>
+<button id="save-button" type="submit" class="pure-button"> Save </button>
+<button id="cancel-button" class="pure-button"> Cancel </button>
 
 <script type=text/javascript>
     $(function() {
@@ -45,7 +45,7 @@
                 type: 'POST',
                 data: {
                     content: window.simplemde.value(),
-                    title: $('input[name="Title"]').val()
+                    title: document.getElementById('title-input').value
                 },
                 dataType: 'json',
                 success:function(res){

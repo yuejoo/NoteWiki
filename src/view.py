@@ -65,11 +65,24 @@ def persist_view_into_db(view):
             category = Category(
                 category_name = view.category_name,
                 content_id = content.content_id,
-                parent_id = get_parent_category(view.category_name).category_id
+                parent_id = 0
             )
 
             database.session.add(category)
     finally:
+        pass
+
+
+def delete_view_from_db(category_name):
+    try:
+        category_instance = Category.query.filter_by(category_name=category_name).first()
+
+        # Resolve on existing category.
+        if category_instance:
+            existing_content = Content.query.filter_by(content_id=category_instance.content_id).first()
+            database.session.delete(existing_content)
+    finally:
+        database.session.delete(category_instance)
         pass
 
 
@@ -78,6 +91,7 @@ def convert_markdown_to_html(data):
     return body_html
 
 
+# TODO: Create parent category if not existing.
 def get_parent_category(category_name):
     # The category name is defined as parent+child+grandchild...
     parent_category_name = '+'.join(category_name.split('+')[:-1])

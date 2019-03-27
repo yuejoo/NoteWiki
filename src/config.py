@@ -7,10 +7,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 FLEET_PROD = 'Prod'
 FLEET_TEST = 'Test'
 FLEET_DEVELOPMENT = "Development"
-
+APPLICATION_ROOT = '/Users/zhaoye/Workspace/NoteWiki/'
 
 class Config:
-    APPLICATION_ROOT = '/Users/zhaoye/Workspace/NoteWiki/'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
 

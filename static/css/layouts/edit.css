@@ -17,4 +17,5 @@
 
 #editor {
     display: block;
+    position: fixed;
 }

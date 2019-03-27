@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <h3 id="home-directory"> Home </h3>
+    <div id="chevron-arrow-right"></div>
+{% endblock %}
+
+{% block content %}
+<div class="header"> </div>
+{% from "utils.html" import render_field %}
+<form id="loginForm" class="form form-register pure-form pure-form-stacked" method="POST" action="" role="form">
+    <legend>Sign up</legend>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.username, placeholder="Username") }}
+    {{ render_field(form.email, placeholder="Email", type="email") }}
+    {{ render_field(form.password, placeholder="Password", type="password") }}
+    {{ render_field(form.confirm, placeholder="Password (again)", type="password") }}
+    <p><input class="btn btn-default btn-submit pure-button pure-button-primary" type="submit" value="Submit">
+</form>
+{% endblock %}

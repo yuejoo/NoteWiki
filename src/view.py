@@ -47,6 +47,8 @@ def persist_view_into_db(view):
             existing_content = Content.query.filter_by(content_id=category_instance.content_id).first()
             existing_content.data = view.markdown_content
             existing_content.title = view.title
+            existing_content.last_edited_by = view.last_edited_by
+            existing_content.last_edited = view.last_edited
         # Create new content and category.
         else:
             content = Content(

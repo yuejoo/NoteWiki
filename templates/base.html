@@ -38,7 +38,7 @@
 
                 {% if current_user.is_authenticated %}
                     <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                        <a href="#" class="pure-menu-link"> Jason </a>
+                        <a href="#" class="pure-menu-link"> {{current_user.user_name}} </a>
                     </li>
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link">Preference</a></li>
                     <li class="pure-menu-item"><a href="{{ request.url_root + 'logout' | safe }}" class="pure-menu-link">Logout</a></li>
@@ -69,10 +69,8 @@
         </div>
     </div>
 
-    <div class="head-bar">
-        <div class="left-part">
-            {% block navbar %} {% endblock %}
-        </div>
+    <div class="head-bar left-part">
+        {% block navbar %} {% endblock %}
     </div>
     <div id = "main" class="content">
         {% block content %} {% endblock %}

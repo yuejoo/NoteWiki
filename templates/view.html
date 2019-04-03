@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+{% endblock %}
+
 {% block navbar %}
     <h3 id="home-directory"> Home </h3>
     {% set links = [] %}
@@ -15,7 +21,12 @@
     <p class="content-meta"> Last edited by {{view.last_edited_by}} on {{view.last_edited|datetime}} </p>
 </div>
 
-<div class="content">
-    {{view.body|safe}}
-</div>
+<div id="html-content" class="content"> </div>
+
+<script type=text/javascript>
+    var markdown_content = `{{view.markdown_content|safe|replace("`", "\`")}}`;
+    var html = simplemde.markdown(markdown_content);
+    document.getElementById("html-content").innerHTML = html;
+</script>
+
 {% endblock %}
